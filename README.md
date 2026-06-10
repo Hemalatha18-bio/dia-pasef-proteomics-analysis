@@ -10,13 +10,13 @@ The project demonstrates skills in computational proteomics, mass spectrometry d
 
 The goal of this project was to support reproducible proteomics analysis by:
 
-- Processing DIA-PASEF and XL-MS datasets
-- Building organism-specific spectral libraries
-- Curating FASTA databases
-- Removing contaminants and controlling false identifications
-- Validating ML scores, Q-values, and FDR metrics
-- Automating DIA-NN output conversion
-- Preparing organized outputs and documentation for downstream interpretation
+* Processing DIA-PASEF and XL-MS datasets
+* Building organism-specific spectral libraries
+* Curating FASTA databases
+* Removing contaminants and controlling false identifications
+* Validating ML scores, Q-values, and FDR metrics
+* Automating DIA-NN output conversion
+* Preparing organized outputs and documentation for downstream interpretation
 
 ## Background
 
@@ -27,32 +27,35 @@ Crosslinking mass spectrometry adds additional biological value by helping ident
 ## Tools and Technologies
 
 ### Proteomics and Mass Spectrometry
-- DIA-NN
-- XL-MSDigger
-- DIA-PASEF
-- XL-MS
-- DIA-MS
-- Spectral library generation
-- FASTA database curation
-- FDR/Q-value analysis
-- timsTOF data interpretation
+
+* DIA-NN
+* XL-MSDigger
+* DIA-PASEF
+* XL-MS
+* DIA-MS
+* Spectral library generation
+* FASTA database curation
+* FDR/Q-value analysis
+* timsTOF data interpretation
 
 ### Programming and Workflow
-- Python
-- R
-- Bash
-- Linux/HPC
-- pandas
-- parquet file handling
-- TSV/CSV output processing
-- Git/GitHub
+
+* Python
+* R
+* Bash
+* Linux/HPC
+* pandas
+* parquet file handling
+* TSV/CSV output processing
+* Git/GitHub
 
 ### Wet-Lab Connection
-- Protein extraction
-- SDS-PAGE
-- Affinity chromatography
-- Protein purification
-- Sample QC
+
+* Protein extraction
+* SDS-PAGE
+* Affinity chromatography
+* Protein purification
+* Sample QC
 
 ## Workflow
 
@@ -96,28 +99,28 @@ Reproducible analysis notes and organized outputs were prepared for lab handoff 
 
 Key outcomes included:
 
-- Processed DIA-PASEF crosslinking mass spectrometry datasets
-- Used XL-MSDigger deep learning-based rescoring to improve confidence in crosslinked peptide identifications
-- Built organism-specific spectral libraries
-- Curated FASTA databases and removed contaminants
-- Automated DIA-NN `.parquet` to `.tsv/.csv` conversion
-- Validated ML scores, Q-values, and FDR metrics
-- Reduced manual post-processing time by approximately 50%
-- Prepared reproducible analysis documentation for lab handoff
+* Processed DIA-PASEF crosslinking mass spectrometry datasets
+* Used XL-MSDigger deep learning-based rescoring to improve confidence in crosslinked peptide identifications
+* Built organism-specific spectral libraries
+* Curated FASTA databases and removed contaminants
+* Automated DIA-NN `.parquet` to `.tsv/.csv` conversion
+* Validated ML scores, Q-values, and FDR metrics
+* Reduced manual post-processing time by approximately 50%
+* Prepared reproducible analysis documentation for lab handoff
 
 ## Key Skills Demonstrated
 
-- Computational proteomics
-- DIA-PASEF and XL-MS analysis
-- DIA-NN output processing
-- XL-MSDigger workflow understanding
-- Spectral library generation
-- FASTA database curation
-- FDR and Q-value validation
-- Python-based workflow automation
-- Biological data interpretation
-- Wet-lab and computational collaboration
-- Reproducible documentation
+* Computational proteomics
+* DIA-PASEF and XL-MS analysis
+* DIA-NN output processing
+* XL-MSDigger workflow understanding
+* Spectral library generation
+* FASTA database curation
+* FDR and Q-value validation
+* Python-based workflow automation
+* Biological data interpretation
+* Wet-lab and computational collaboration
+* Reproducible documentation
 
 ## Repository Structure
 
@@ -141,4 +144,36 @@ dia-pasef-proteomics-analysis/
 ├── reports/
 │   └── project_report.md
 └── LICENSE
-'''
+```
+
+## Data Privacy and Availability
+
+Raw proteomics datasets are not included in this repository. Some mass spectrometry datasets may be lab-owned, unpublished, large, or restricted. This repository is intended to demonstrate workflow design, code templates, documentation structure, and portfolio-level project organization.
+
+Synthetic or small example files may be included only for code demonstration.
+
+## Limitations
+
+This public repository does not include original lab data or unpublished research outputs. The repository focuses on reproducible workflow structure and general computational methods.
+
+## Future Improvements
+
+Future improvements could include:
+
+* Packaging the workflow with Snakemake or Nextflow
+* Adding automated QC report generation
+* Adding visualization scripts for FDR and Q-value summaries
+* Supporting additional DIA-MS tools
+* Creating reusable spectral library preparation templates
+* Adding dashboard-style output summaries
+
+## Portfolio Summary
+
+This project demonstrates my ability to process complex proteomics datasets, validate computational outputs, automate file processing, and connect mass spectrometry data analysis with biological interpretation and wet-lab workflows.
+
+## Author
+
+Hemalatha Ponnam
+M.S. Bioinformatics & Computational Biology
+Saint Louis University
+Email: [hema22000latha@gmail.com](mailto:hema22000latha@gmail.com)
