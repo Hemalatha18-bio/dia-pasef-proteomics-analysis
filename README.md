@@ -128,9 +128,17 @@ dia-pasef-proteomics-analysis/
 ├── data_description.md
 ├── requirements.txt
 ├── data/
+│   └── example_diann_output.csv
 ├── notebooks/
+│   └── .gitkeep
 ├── src/
+│   ├── convert_diann_outputs.py
+│   └── proteomics_qc_summary.py
 ├── figures/
+│   └── workflow_description.md
 ├── results/
+│   └── results_summary.md
 ├── reports/
+│   └── project_report.md
 └── LICENSE
+'''
