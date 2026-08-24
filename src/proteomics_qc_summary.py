@@ -12,6 +12,12 @@ import pandas as pd
 REQUIRED_COLUMNS = ["Protein.Group", "Genes", "Q.Value", "Quantity"]
 
 
+def _validate_required_columns(data):
+    missing = [column for column in REQUIRED_COLUMNS if column not in data.columns]
+    if missing:
+        raise ValueError(f"Missing required columns: {', '.join(missing)}")
+
+
 def load_diann_output(file_path):
     """Load CSV or TSV DIA-NN-style output and validate required columns."""
     input_path = Path(file_path)
@@ -28,14 +34,16 @@ def load_diann_output(file_path):
     if data.empty:
         raise ValueError("Input DIA-NN table is empty.")
 
-    missing = [column for column in REQUIRED_COLUMNS if column not in data.columns]
-    if missing:
-        raise ValueError(f"Missing required columns: {', '.join(missing)}")
+    _validate_required_columns(data)
     return data
 
 
 def summarize_qc_metrics(data):
     """Summarize key demonstration QC metrics from DIA-NN-style output."""
+    if data.empty:
+        raise ValueError("Input DIA-NN table is empty.")
+    _validate_required_columns(data)
+
     q_values = pd.to_numeric(data["Q.Value"], errors="coerce")
     quantity = pd.to_numeric(data["Quantity"], errors="coerce")
 
