@@ -8,51 +8,30 @@ The **public repository is a reproducible demonstration of selected downstream p
 
 ## Public Repository Scope
 
-The public demo currently includes:
+The public demo includes DIA-NN parquet-to-CSV/TSV conversion, CLI-based Q-value and QC summaries, input validation, generated QC visualization, pytest tests, GitHub Actions CI, a generic SLURM example, and a compact Snakemake workflow. Small example/synthetic DIA-NN-style data are used only to demonstrate software behavior.
 
-- conversion of DIA-NN `.parquet` output tables to CSV and TSV;
-- command-line interfaces for conversion and QC summarization;
-- Q-value distribution summaries exported to JSON;
-- validation of required DIA-NN-style columns;
-- precursor, protein-group, gene, Q-value, and quantity QC summaries;
-- example/synthetic DIA-NN-style input data; and
-- reproducible portfolio documentation.
-
-The broader project context included DIA-PASEF/XL-MS datasets, FASTA curation, organism-specific spectral-library preparation, XL-MSDigger analysis, FDR/Q-value review, Linux/HPC execution, wet-lab collaboration, and automation of repetitive post-processing. Those activities are documented here as broader project experience and are not all implemented by the current public scripts.
+The broader project context included DIA-PASEF/XL-MS datasets, FASTA curation, organism-specific spectral-library preparation, XL-MSDigger analysis, FDR/Q-value review, Linux/HPC execution, wet-lab collaboration, and automation of repetitive post-processing. Those activities are broader project experience and are not all implemented by the public scripts.
 
 ## Data and Privacy
 
-Raw proteomics datasets are not included because laboratory mass-spectrometry data may be large, unpublished, restricted, or lab-owned. The repository uses small example or synthetic files for software demonstration only.
-
-Public-demo outputs should not be interpreted as biological findings or validation of a proteomics experiment.
-
-See `data_description.md` for dataset notes.
+Raw proteomics datasets are not included because laboratory mass-spectrometry data may be large, unpublished, restricted, or lab-owned. Public-demo outputs should not be interpreted as biological findings or validation of a proteomics experiment. See `data_description.md` for dataset notes.
 
 ## Technologies
 
-### Proteomics context
-
-- DIA-NN
-- DIA-PASEF
-- DIA-MS
-- XL-MS / XL-MSDigger context
-- FASTA database curation
-- Spectral-library preparation
-- FDR / Q-value review
-- timsTOF workflow context
-
-### Programming and workflow
-
-- Python
-- pandas
+- Python, pandas, pyarrow, matplotlib
+- DIA-NN output processing and Q-value/QC review
 - parquet / CSV / TSV processing
-- Linux/HPC concepts
-- Git/GitHub
+- pytest and GitHub Actions
+- Snakemake
+- SLURM / Linux-HPC concepts
+- Git / GitHub
+- DIA-PASEF, XL-MS, XL-MSDigger, FASTA and spectral-library context
 
 ## Repository Structure
 
 ```text
 dia-pasef-proteomics-analysis/
+├── .github/workflows/ci.yml
 ├── README.md
 ├── data_description.md
 ├── requirements.txt
@@ -60,7 +39,15 @@ dia-pasef-proteomics-analysis/
 │   └── example_diann_output.csv
 ├── src/
 │   ├── convert_diann_outputs.py
-│   └── proteomics_qc_summary.py
+│   ├── proteomics_qc_summary.py
+│   └── visualize_qc.py
+├── tests/
+│   └── test_proteomics.py
+├── hpc/
+│   └── run_qc.slurm
+├── workflow/
+│   ├── Snakefile
+│   └── config.yaml
 ├── figures/
 ├── results/
 ├── reports/
@@ -68,31 +55,21 @@ dia-pasef-proteomics-analysis/
 └── LICENSE
 ```
 
-## How to Run the Public Demo
+## How to Run
 
-### 1. Clone the repository
+Create a virtual environment and install dependencies:
 
 ```bash
 git clone https://github.com/Hemalatha18-bio/dia-pasef-proteomics-analysis.git
 cd dia-pasef-proteomics-analysis
-```
-
-### 2. Create and activate a virtual environment
-
-```bash
 python -m venv .venv
 source .venv/bin/activate
-```
-
-On Windows, use `.venv\\Scripts\\activate`.
-
-### 3. Install dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
-### 4. Generate a QC summary from the example CSV
+On Windows, activate with `.venv\\Scripts\\activate`.
+
+Generate the QC summary:
 
 ```bash
 python src/proteomics_qc_summary.py \
@@ -100,9 +77,7 @@ python src/proteomics_qc_summary.py \
   --output results/proteomics_qc_summary.csv
 ```
 
-This validates required columns and exports a one-row QC summary containing precursor count, unique protein groups, unique genes, Q-value thresholds, and quantity summaries.
-
-### 5. Summarize Q-values independently
+Generate the independent Q-value summary:
 
 ```bash
 python src/convert_diann_outputs.py summarize \
@@ -110,9 +85,15 @@ python src/convert_diann_outputs.py summarize \
   --output results/q_value_summary.json
 ```
 
-### 6. Convert a DIA-NN parquet file
+Generate a QC figure from the actual summary output:
 
-When you have an appropriate `.parquet` file available locally:
+```bash
+python src/visualize_qc.py \
+  --input results/proteomics_qc_summary.csv \
+  --output figures/qvalue_qc_summary.png
+```
+
+To convert a local DIA-NN parquet output:
 
 ```bash
 python src/convert_diann_outputs.py convert \
@@ -120,57 +101,68 @@ python src/convert_diann_outputs.py convert \
   --output-dir results/converted
 ```
 
-The script writes both CSV and TSV versions. Raw or restricted lab files should not be committed to this public repository.
+Raw or restricted lab files should not be committed to this public repository.
+
+## Tests and CI
+
+Run the tests locally with:
+
+```bash
+pytest -q
+```
+
+GitHub Actions runs the test suite for pull requests and pushes targeting `main`.
+
+## Snakemake Workflow
+
+Run the complete public-demo QC workflow with:
+
+```bash
+snakemake -s workflow/Snakefile --cores 1
+```
+
+The workflow creates the QC summary, Q-value JSON summary, and QC figure from the example input defined in `workflow/config.yaml`.
+
+## SLURM Example
+
+`hpc/run_qc.slurm` demonstrates how the same public-demo QC steps can be submitted on a SLURM-based HPC system. Cluster-specific modules, partitions, accounts, and environment activation should be adjusted for the target system.
 
 ## Public Demo Outputs
-
-Typical generated outputs are:
 
 ```text
 results/proteomics_qc_summary.csv
 results/q_value_summary.json
 results/converted/<input_name>.csv
 results/converted/<input_name>.tsv
+figures/qvalue_qc_summary.png
 ```
 
-These outputs are demonstrations of post-processing and QC software behavior, not experimental conclusions.
+These are software-demonstration outputs, not experimental conclusions.
 
 ## Broader Project Context
 
-The broader project workflow included:
-
-1. organizing DIA-PASEF and crosslinking mass-spectrometry outputs;
-2. curating organism-specific FASTA databases;
-3. supporting spectral-library preparation;
-4. working with XL-MSDigger and rescoring/QC concepts;
-5. processing DIA-NN outputs;
-6. reviewing Q-values, FDR-related metrics, and ML scores;
-7. automating repetitive post-processing tasks;
-8. connecting computational outputs with wet-lab protein workflows; and
-9. preparing organized analysis documentation for lab handoff.
+The broader project workflow included organizing DIA-PASEF and crosslinking-MS outputs, curating organism-specific FASTA databases, supporting spectral-library preparation, working with XL-MSDigger/rescoring concepts, processing DIA-NN outputs, reviewing Q-values/FDR-related metrics, automating repetitive post-processing, connecting computational outputs with wet-lab protein workflows, and preparing documentation for lab handoff.
 
 Quantitative claims from the broader project, including time-savings estimates, are intentionally **not presented as reproducible public-demo results unless the corresponding benchmark data and code are available in this repository**.
 
 ## Limitations
 
 - The public repository does not process raw timsTOF/DIA-PASEF acquisition files.
-- It does not reproduce XL-MSDigger analysis or spectral-library generation.
+- It does not reproduce XL-MSDigger analysis, FASTA curation, or spectral-library generation.
 - It does not include original lab data or unpublished outputs.
-- The example DIA-NN-style table cannot establish experimental quality or biological validity.
-- QC thresholds should be interpreted in the context of the upstream analysis and study design.
+- Example DIA-NN-style data cannot establish experimental quality or biological validity.
+- QC thresholds require interpretation in the context of upstream analysis and study design.
 
-## Planned Improvements
+## Future Improvements
 
-- Add automated tests and GitHub Actions CI.
-- Add QC visualizations driven by generated summaries.
-- Add a generic SLURM example for HPC execution.
-- Add a compact Snakemake workflow for public-demo post-processing.
-- Improve logging and optional-column handling.
-- Add a safe template documenting FASTA/spectral-library preparation without distributing restricted resources.
+- Improve structured logging and optional-column handling.
+- Add more QC visualizations and report-generation options.
+- Add a safe FASTA/spectral-library preparation documentation template without restricted resources.
+- Pin dependency versions when a stable release snapshot is desired.
 
 ## Skills Demonstrated
 
-This repository demonstrates computational proteomics context, Python data processing, DIA-NN output handling, Q-value/QC summarization, command-line tool design, input validation, reproducibility practices, Git/GitHub organization, and familiarity with Linux/HPC proteomics workflows.
+This repository demonstrates computational proteomics context, Python data processing, DIA-NN output handling, Q-value/QC summarization, command-line tool design, input validation, visualization from generated outputs, automated testing, CI, workflow automation, reproducibility practices, and familiarity with Linux/HPC proteomics workflows.
 
 ## Author
 
