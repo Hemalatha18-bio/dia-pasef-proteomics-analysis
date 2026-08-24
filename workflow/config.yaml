@@ -1,0 +1,4 @@
+input_csv: data/example_diann_output.csv
+qc_summary: results/proteomics_qc_summary.csv
+qvalue_summary: results/q_value_summary.json
+qc_figure: figures/qvalue_qc_summary.png

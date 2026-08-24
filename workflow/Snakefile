@@ -1,0 +1,31 @@
+configfile: "workflow/config.yaml"
+
+rule all:
+    input:
+        config["qc_summary"],
+        config["qvalue_summary"],
+        config["qc_figure"]
+
+rule qc_summary:
+    input:
+        config["input_csv"]
+    output:
+        config["qc_summary"]
+    shell:
+        "python src/proteomics_qc_summary.py --input {input} --output {output}"
+
+rule qvalue_summary:
+    input:
+        config["input_csv"]
+    output:
+        config["qvalue_summary"]
+    shell:
+        "python src/convert_diann_outputs.py summarize --input {input} --output {output}"
+
+rule qc_figure:
+    input:
+        config["qc_summary"]
+    output:
+        config["qc_figure"]
+    shell:
+        "python src/visualize_qc.py --input {input} --output {output}"
