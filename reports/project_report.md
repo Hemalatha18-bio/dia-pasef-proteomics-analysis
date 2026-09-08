@@ -5,104 +5,121 @@ Hemalatha Ponnam
 
 ## Project Overview
 
-This project documents a computational proteomics workflow for DIA-PASEF and crosslinking mass spectrometry data analysis. The workflow focuses on DIA-NN output processing, XL-MSDigger-based rescoring, spectral library generation, FASTA database curation, Q-value/FDR validation, and reproducible reporting.
+This repository presents a reproducible public demonstration of selected downstream computational proteomics tasks centered on DIA-NN-style outputs. The executable public code focuses on format conversion, input validation, Q-value/QC summarization, visualization, testing, and reproducible workflow execution.
 
-The project was inspired by my work as a Bioinformatics Research Assistant in the Haijun Liu Lab at Saint Louis University, where I supported computational proteomics and protein biochemistry workflows.
+The broader project experience included DIA-PASEF, crosslinking mass spectrometry, FASTA curation, spectral-library preparation, XL-MSDigger/rescoring concepts, Linux/HPC execution, wet-lab collaboration, and laboratory handoff. Those broader activities are described separately because they are not all reproduced by the public scripts in this repository.
 
-## Background
+## Public Reproducible Demonstration
 
-Proteomics uses mass spectrometry to identify and quantify proteins, peptides, and protein-level interactions. DIA-PASEF combines data-independent acquisition with trapped ion mobility separation, creating rich and complex datasets that require specialized computational workflows.
+### Objective
 
-Crosslinking mass spectrometry adds another layer of biological interpretation by helping identify protein-protein interactions and structural relationships. Because these workflows generate large and complex outputs, reproducible data processing, metric validation, and careful documentation are essential.
+The public demo is designed to show how compatible DIA-NN-style outputs can be converted, validated, summarized, visualized, and incorporated into a reproducible analysis workflow.
 
-## Objective
+### Data
 
-The objective of this project was to demonstrate a reproducible computational proteomics workflow that could:
+The repository includes a small example DIA-NN-style table intended for software testing and documentation. It does not include raw timsTOF/DIA-PASEF acquisition data, unpublished laboratory datasets, or original XL-MS analysis outputs.
 
-1. Organize DIA-PASEF and XL-MS outputs.
-2. Curate organism-specific FASTA databases.
-3. Support spectral library generation.
-4. Process DIA-NN output files.
-5. Convert `.parquet` outputs into `.csv` and `.tsv` formats.
-6. Validate ML scores, Q-values, and FDR metrics.
-7. Summarize QC metrics.
-8. Prepare structured outputs for biological interpretation.
+### DIA-NN Output Processing
 
-## Methods
+The public utilities support loading validated CSV/TSV inputs and converting compatible local `.parquet` outputs into `.csv` and `.tsv` formats. These tools are intended to make downstream review and reporting easier while keeping restricted or lab-owned data outside the repository.
 
-### 1. FASTA Database Curation
+### QC Summarization
 
-Organism-specific FASTA databases were curated to improve downstream reliability. This included database review, contaminant removal, and preparation of clean sequence files for spectral library workflows.
+The public QC code reports descriptive metrics including:
 
-### 2. Spectral Library Generation
+- total precursor entries;
+- unique protein groups;
+- unique genes;
+- counts below selected Q-value thresholds;
+- median quantity; and
+- mean quantity.
 
-Spectral libraries were generated to support DIA-MS and XL-MS analysis workflows. These libraries provided peptide and protein-level reference information for downstream interpretation.
+These values are descriptive summaries of the provided input. They are not substitutes for upstream search-engine validation, experimental QC, or study-specific statistical analysis.
 
-### 3. DIA-NN Output Processing
+### Visualization
 
-DIA-NN output tables were processed and converted into accessible formats such as `.csv` and `.tsv`. This made the outputs easier to review, filter, validate, and share with collaborators.
+The repository generates a QC figure from the exported summary so that figures are tied directly to reproducible outputs rather than manually entered values.
 
-### 4. XL-MSDigger-Based Analysis
+### Reproducibility and Software Practices
 
-XL-MSDigger deep learning-based rescoring was used to improve confidence in crosslinked peptide identifications.
+The repository also demonstrates:
 
-### 5. Q-Value and FDR Validation
+- Python and pandas data processing;
+- command-line utility design;
+- input validation and error handling;
+- parquet / CSV / TSV handling;
+- pytest-based automated tests;
+- GitHub Actions continuous integration;
+- Snakemake workflow orchestration;
+- generic SLURM/HPC execution examples; and
+- structured result generation for downstream review.
 
-Q-values and FDR-related metrics were reviewed to evaluate confidence in peptide and protein identifications. Lower Q-values supported higher-confidence identifications.
+## Broader Project Experience
 
-### 6. Workflow Automation
+The broader computational proteomics context included:
 
-Python scripts were used to reduce repetitive manual processing, including output conversion and QC summary generation.
+- working with DIA-PASEF and crosslinking mass-spectrometry datasets;
+- organizing and reviewing DIA-NN outputs;
+- FASTA database curation;
+- organism-specific spectral-library preparation;
+- XL-MSDigger/rescoring workflow concepts;
+- Q-value and FDR-related review;
+- Linux/HPC execution;
+- automation of repetitive post-processing;
+- collaboration across computational and wet-lab workflows; and
+- preparation of organized outputs and documentation for lab handoff.
 
-### 7. Wet-Lab Integration
-
-Computational analysis was connected with wet-lab workflows including protein extraction, SDS-PAGE, affinity chromatography, protein purification, and sample QC.
-
-## Results
-
-Key outcomes included:
-
-- Processed DIA-PASEF crosslinking mass spectrometry datasets.
-- Used XL-MSDigger deep learning-based rescoring to support high-confidence crosslinked peptide identification.
-- Built organism-specific spectral libraries.
-- Curated FASTA databases and removed contaminants.
-- Automated DIA-NN `.parquet` to `.csv/.tsv` output conversion.
-- Validated ML scores, Q-values, and FDR metrics.
-- Reduced manual post-processing time by approximately 50%.
-- Prepared reproducible documentation and organized outputs for lab handoff.
+These activities represent broader project experience and are not all implemented in the current public repository. Specific claims about identification improvements, processing-time reductions, or other quantitative gains are intentionally not presented as public-demo results unless the supporting data and reproducible benchmark procedure are available here.
 
 ## Skills Demonstrated
 
-This project demonstrates experience in:
+### Public repository
 
-- Computational proteomics
-- DIA-PASEF data analysis
-- Crosslinking mass spectrometry workflows
-- DIA-NN output processing
-- XL-MSDigger workflow understanding
-- FASTA database curation
-- Spectral library generation
-- FDR and Q-value validation
-- Python automation
-- QC summary generation
-- Wet-lab and computational integration
-- Scientific documentation
+- Python
+- pandas / pyarrow
+- DIA-NN-style output handling
+- parquet / CSV / TSV conversion
+- Q-value/QC summarization
+- input validation
+- visualization
+- pytest
+- GitHub Actions
+- Snakemake
+- SLURM/HPC concepts
+- reproducible scientific computing
+
+### Broader project context
+
+- computational proteomics
+- DIA-PASEF workflows
+- crosslinking mass spectrometry context
+- FASTA curation
+- spectral-library preparation
+- XL-MSDigger/rescoring concepts
+- FDR/Q-value review
+- wet-lab collaboration
+- scientific documentation and handoff
 
 ## Limitations
 
-This public repository does not include raw mass spectrometry data, unpublished lab outputs, or confidential project files. Instead, it uses synthetic/example data and code templates to demonstrate workflow structure and computational methods.
+- The public repository does not process raw DIA-PASEF acquisition files.
+- It does not reproduce XL-MSDigger rescoring, FASTA curation, or spectral-library generation.
+- It does not include original unpublished or lab-owned data.
+- Example DIA-NN-style inputs cannot establish experimental or biological validity.
+- QC thresholds require interpretation in the context of the upstream analysis and study design.
 
 ## Future Improvements
 
-Future improvements could include:
+Useful extensions include:
 
-- Packaging the workflow using Snakemake or Nextflow.
-- Adding automated QC report generation.
-- Adding visualizations for Q-value and intensity distributions.
-- Adding support for additional DIA-MS tools.
-- Creating reusable spectral library preparation templates.
-- Building dashboard-style result summaries.
+- additional QC visualizations;
+- percentage-based confidence summaries;
+- missing-value and optional-column diagnostics;
+- structured logging;
+- richer automated report generation;
+- broader workflow tests; and
+- committed example outputs and figures generated directly from the public demo.
 
 ## Conclusion
 
-This project demonstrates how computational proteomics workflows can support mass spectrometry data processing, QC validation, output conversion, and biological interpretation. It highlights my ability to work across proteomics, Python automation, wet-lab collaboration, and reproducible scientific reporting.
+This repository demonstrates a clear separation between reproducible public software and broader proteomics project experience. The public artifact highlights Python-based data processing, QC summarization, reproducibility, testing, CI, workflow orchestration, and HPC-aware scientific computing without presenting example-data outputs as experimental conclusions.
