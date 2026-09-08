@@ -39,7 +39,7 @@ def load_diann_output(file_path):
 
 
 def summarize_qc_metrics(data):
-    """Summarize key demonstration QC metrics from DIA-NN-style output."""
+    """Summarize descriptive QC metrics from a DIA-NN-style output table."""
     if data.empty:
         raise ValueError("Input DIA-NN table is empty.")
     _validate_required_columns(data)
@@ -47,19 +47,30 @@ def summarize_qc_metrics(data):
     q_values = pd.to_numeric(data["Q.Value"], errors="coerce")
     quantity = pd.to_numeric(data["Quantity"], errors="coerce")
 
-    if q_values.notna().sum() == 0:
+    valid_q_values = int(q_values.notna().sum())
+    valid_quantities = int(quantity.notna().sum())
+    if valid_q_values == 0:
         raise ValueError("Q.Value contains no numeric values.")
-    if quantity.notna().sum() == 0:
+    if valid_quantities == 0:
         raise ValueError("Quantity contains no numeric values.")
+
+    q_below_001 = int((q_values < 0.01).sum())
+    q_below_005 = int((q_values < 0.05).sum())
 
     return {
         "total_precursors": int(len(data)),
         "unique_protein_groups": int(data["Protein.Group"].nunique(dropna=True)),
         "unique_genes": int(data["Genes"].nunique(dropna=True)),
-        "q_value_below_0.01": int((q_values < 0.01).sum()),
-        "q_value_below_0.05": int((q_values < 0.05).sum()),
+        "q_value_below_0.01": q_below_001,
+        "q_value_below_0.05": q_below_005,
+        "percent_q_value_below_0.01": float(100.0 * q_below_001 / valid_q_values),
+        "percent_q_value_below_0.05": float(100.0 * q_below_005 / valid_q_values),
+        "median_q_value": float(q_values.median()),
+        "mean_q_value": float(q_values.mean()),
         "median_quantity": float(quantity.median()),
         "mean_quantity": float(quantity.mean()),
+        "missing_q_values": int(q_values.isna().sum()),
+        "missing_quantities": int(quantity.isna().sum()),
     }
 
 
