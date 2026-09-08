@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="420" viewBox="0 0 760 420" role="img" aria-labelledby="title desc">
+  <title id="title">DIA-NN QC summary for example data</title>
+  <desc id="desc">Bar chart showing 8 total precursors, 3 with Q value below 0.01, and 7 with Q value below 0.05.</desc>
+  <rect width="760" height="420" fill="white"/>
+  <text x="380" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="22">DIA-NN QC: Q-value thresholds (example data)</text>
+  <line x1="90" y1="340" x2="700" y2="340" stroke="black" stroke-width="2"/>
+  <line x1="90" y1="80" x2="90" y2="340" stroke="black" stroke-width="2"/>
+  <text x="52" y="345" font-family="Arial, sans-serif" font-size="14">0</text>
+  <text x="52" y="280" font-family="Arial, sans-serif" font-size="14">2</text>
+  <text x="52" y="215" font-family="Arial, sans-serif" font-size="14">4</text>
+  <text x="52" y="150" font-family="Arial, sans-serif" font-size="14">6</text>
+  <text x="52" y="85" font-family="Arial, sans-serif" font-size="14">8</text>
+  <rect x="145" y="80" width="120" height="260" fill="#777"/>
+  <rect x="330" y="242.5" width="120" height="97.5" fill="#999"/>
+  <rect x="515" y="112.5" width="120" height="227.5" fill="#555"/>
+  <text x="205" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="16">8</text>
+  <text x="390" y="232" text-anchor="middle" font-family="Arial, sans-serif" font-size="16">3</text>
+  <text x="575" y="102" text-anchor="middle" font-family="Arial, sans-serif" font-size="16">7</text>
+  <text x="205" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">Total precursors</text>
+  <text x="390" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">Q &lt; 0.01</text>
+  <text x="575" y="370" text-anchor="middle" font-family="Arial, sans-serif" font-size="14">Q &lt; 0.05</text>
+  <text x="25" y="210" transform="rotate(-90 25 210)" text-anchor="middle" font-family="Arial, sans-serif" font-size="15">Count</text>
+  <text x="380" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="12">Synthetic/example DIA-NN-style data; not an experimental result.</text>
+</svg>
