@@ -1,0 +1,8 @@
+{
+  "total_rows": 8,
+  "q_value_less_than_0.01": 3,
+  "q_value_less_than_0.05": 7,
+  "minimum_q_value": 0.002,
+  "median_q_value": 0.016,
+  "maximum_q_value": 0.06
+}
