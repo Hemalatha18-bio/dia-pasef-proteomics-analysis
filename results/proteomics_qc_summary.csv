@@ -1,0 +1,2 @@
+total_precursors,unique_protein_groups,unique_genes,q_value_below_0.01,q_value_below_0.05,percent_q_value_below_0.01,percent_q_value_below_0.05,median_q_value,mean_q_value,median_quantity,mean_quantity,missing_q_values,missing_quantities
+8,8,8,3,7,37.5,87.5,0.016,0.022875,87000.0,100750.0,0,0
